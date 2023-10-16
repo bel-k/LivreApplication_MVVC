@@ -1,0 +1,13 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="mt-5">
+    <a asp-page="/Livres/new" class="w-20 btn btn-primary m-2">+add new Book</a>
+    @if (Model.Livres.Count() == 0)
+    {
+        <p class="text-center">No data to display</p>
+    }
+</div>

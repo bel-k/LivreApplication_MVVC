@@ -1,0 +1,91 @@
+﻿@page
+@model appPageRazor.Pages.Livres.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>book list</h1>
+
+<p>
+    <a asp-page="Create" class="btn btn-primary">Create New</a>
+    <form method="get" action="">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" name="searchQuery" placeholder="Search...">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+            </div>
+        </div>
+    </form>
+</p>
+<div class="card-container" style="display: flex; flex-wrap: wrap;">
+@* @foreach (var item in Model.Livre) {
+
+        <div class="card" style="width: 18rem; margin: 10px;">
+            <img src="   @Html.DisplayFor(modelItem => item.Img)" class="card-img-top" alt="https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-980x653.jpg" style="width: 285px; height: 200px;">
+        <div class="card-body">
+            <h5 class="card-title"> @Html.DisplayFor(modelItem => item.title)</h5>
+            <p class="card-text">description</p>
+            <p class="card-text">@Html.DisplayFor(modelItem => item.description)</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">created At</li>
+            <li class="list-group-item">@Html.DisplayFor(modelItem => item.createdAt)</li>
+            
+        </ul>
+        <div class="card-body">
+            <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-outline-success">Edit</a>
+            <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-outline-secondary">Details</a>
+            <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a>
+        </div>
+    </div>
+    }
+</div> *@
+    @{
+        var filteredList = Model.Livre;
+
+        if (!string.IsNullOrEmpty(Request.Query["searchQuery"]))
+        {
+            var searchQuery = Request.Query["searchQuery"].ToString().ToLower();
+            filteredList = Model.Livre.Where(book => book.title.ToLower().Contains(searchQuery) || 
+                book.description.ToLower().Contains(searchQuery)||
+                book.autor.ToLower().Contains(searchQuery)).ToList();
+        }
+
+        foreach (var item in filteredList)
+        {
+            <div class="card" style="width: 18rem; margin: 10px;">
+                <img src="@Html.DisplayFor(modelItem => item.Img)" class="card-img-top" alt="Book Image" style="width: 285px; height: 200px;">
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.title)</h5>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.description)</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item bg-light" >author</li>
+                    <li class="list-group-item">@Html.DisplayFor(modelItem => item.autor)</li>
+                    <li class="list-group-item bg-light" ">category</li>
+                    <li class="list-group-item">@Html.DisplayFor(modelItem => item.Category)</li>
+                    <li class="list-group-item bg-light" ">published</li>
+                    <li class="list-group-item">@Html.DisplayFor(modelItem => item.createdAt)</li>
+                </ul>
+                <div class="card-body">
+                    <a asp-page="./Edit" asp-route-id="@item.ISBN" class="btn btn-outline-success">Edit</a>
+                    <a asp-page="./Details" asp-route-id="@item.ISBN" class="btn btn-outline-secondary">Details</a>
+                    <a asp-page="./Delete" asp-route-id="@item.ISBN" class="btn btn-outline-danger">Delete</a>
+                </div>
+            </div>
+        }
+    }
+</div>
+@section Scripts {
+    <script>
+        $(function () {
+            $("#basic-text1").click(function () {
+                $("Form").submit();
+            }
+        }
+
+        )
+    </script>
+    
+}

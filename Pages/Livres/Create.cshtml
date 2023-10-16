@@ -1,0 +1,70 @@
+﻿@page
+@using appPageRazor.Models
+@model appPageRazor.Pages.Livres.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Livre</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Livre.ISBN" class="control-label"></label>
+                <input asp-for="Livre.ISBN" class="form-control" />
+                <span asp-validation-for="Livre.ISBN" class="text-danger"></span>
+            </div> 
+            <div class="form-group">
+                <label asp-for="Livre.title" class="control-label">title</label>
+                <input asp-for="Livre.title" class="form-control" />
+                <span asp-validation-for="Livre.title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Livre.autor" class="control-label">autor</label>
+                <input asp-for="Livre.autor" class="form-control" />
+                <span asp-validation-for="Livre.autor" class="text-danger"></span>
+            </div>
+           
+            <div class="form-group">
+                <label asp-for="Livre.Category" class="control-label">Category</label>
+                 <select class="form-select"
+                        asp-for="Livre.Category"
+                        asp-items="Html.GetEnumSelectList<Category>()">
+                  </select> 
+            </div> 
+            <div class="form-group">
+                <label asp-for="Livre.description" class="control-label">description</label>
+                <input asp-for="Livre.description" class="form-control" />
+                <span asp-validation-for="Livre.description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Livre.createdAt" class="control-label">published</label>
+                <input asp-for="Livre.createdAt" class="form-control" />
+                <span asp-validation-for="Livre.createdAt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Livre.Img" class="control-label"></label>
+                <input asp-for="Livre.Img" class="form-control" />
+                <span asp-validation-for="Livre.Img" class="text-danger"></span>
+            </div>
+            
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
